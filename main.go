@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	bootstarp "fwwb/bootstrap"
 	"fwwb/dao"
 	"net/http"
@@ -15,6 +16,26 @@ func DangerList(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, res)
+}
+
+func DangerAdd(c *gin.Context) {
+	data, err := c.GetRawData()
+	if err != nil {
+		c.String(http.StatusOK, "error")
+		return
+	}
+	var body dao.Danger
+	err = json.Unmarshal(data, &body)
+	if err != nil {
+		c.String(http.StatusOK, "error")
+		return
+	}
+	err = dao.InsertDanger(body)
+	if err != nil {
+		c.String(http.StatusOK, "error")
+		return
+	}
+	c.String(http.StatusOK, "ok")
 }
 
 func main() {

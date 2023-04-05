@@ -15,7 +15,8 @@ type Danger struct {
 }
 
 func InsertDanger(d Danger) error {
-	_, err := library.MysqlDB.Exec("insert INTO dangers(username,password) values(?,?)", "test", "123456")
+	_, err := library.MysqlDB.Exec("insert INTO dangers(ctime,address,desc,imgs,status) values(?,?,?,?,?)",
+		d.Ctime, d.Address, d.Desc, d.Imgs, d.Status)
 	if err != nil {
 		return err
 	}
