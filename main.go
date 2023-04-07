@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	bootstarp "fwwb/bootstrap"
+	"fwwb/controller"
 	"fwwb/dao"
 	"net/http"
 
@@ -42,5 +43,7 @@ func main() {
 	bootstarp.InitMysql()
 	e := gin.Default() //创建一个默认的路由引擎
 	e.GET("/danger/list", DangerList)
+	e.GET("/live/img", controller.GetLive)
+	e.POST("/live/update", controller.UpdateLive)
 	e.Run()
 }
